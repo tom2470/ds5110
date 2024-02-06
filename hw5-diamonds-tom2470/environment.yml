@@ -1,0 +1,10 @@
+name: myenv
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - matplotlib
+  - scikit-learn
+  - pandas
+  - seaborn
+  - kaleido

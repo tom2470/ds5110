@@ -1,0 +1,22 @@
+import pandas as pd
+import seaborn as sns
+import numpy as np
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+import math
+url='https://github.com/jennybc/gapminder/blob/main/inst/extdata/gapminder.tsv?raw=true'
+df=pd.read_csv(url, sep= "\t")
+g=sns.FacetGrid(df,col='year')
+g.map_dataframe(sns.histplot,x='lifeExp', hue= 'continent',multiple="stack")
+g.add_legend()
+g=sns.FacetGrid(df,col='year')
+g.map_dataframe(sns.boxplot,x='lifeExp',y='continent')
+g=sns.FacetGrid(df,col='continent')
+g.map_dataframe(sns.scatterplot,x='lifeExp',y='gdpPercap')
+myplt=sns.histplot(data=df,x='lifeExp', stat='density',kde=True,label='data')
+mu, std = norm.fit(df['lifeExp'])
+xmin, xmax = plt.xlim()
+x = np.linspace(xmin, xmax, 100)
+p = norm.pdf(x, mu, std)   
+myplt.plot(x, p, 'k', linewidth=2, label='normal')                                               
+myplt.legend()
